@@ -1,7 +1,6 @@
 {
-  "fontSize": 80,
+  "fontSize": 90,
   "textColor": "white",
   "strokeColor": "black",
-  "lineWidth": 8,
-  "animation": "pop"
+  "lineWidth": 10
 }
