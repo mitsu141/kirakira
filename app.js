@@ -1,16 +1,3 @@
-import {
-  createFFmpeg,
-  fetchFile
-} from 'https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js'
-
-import {
-  searchImage
-} from './api/image.js'
-
-const ffmpeg = createFFmpeg({
-  log: true,
-})
-
 const generateBtn =
   document.getElementById('generateBtn')
 
@@ -47,7 +34,7 @@ generateBtn.addEventListener(
       await fetchImages(scenes)
 
     const videoBlob =
-      await generateVideo(
+      await generateFakeVideo(
         scenes,
         images
       )
@@ -81,7 +68,7 @@ async function fetchImages(scenes) {
   for (const scene of scenes) {
 
     const image =
-      await searchImage(scene)
+      `https://picsum.photos/1080/1920?random=${Math.random()}`
 
     result.push(image)
 
@@ -91,16 +78,10 @@ async function fetchImages(scenes) {
 
 }
 
-async function generateVideo(
+async function generateFakeVideo(
   scenes,
   images
 ) {
-
-  if (!ffmpeg.isLoaded()) {
-
-    await ffmpeg.load()
-
-  }
 
   const canvas =
     document.createElement('canvas')
@@ -111,79 +92,19 @@ async function generateVideo(
   const ctx =
     canvas.getContext('2d')
 
-  const frames = []
+  const img =
+    await loadImage(images[0])
 
-  for (let i = 0; i < scenes.length; i++) {
-
-    const img =
-      await loadImage(images[i])
-
-    ctx.clearRect(
-      0,
-      0,
-      1080,
-      1920
-    )
-
-    ctx.drawImage(
-      img,
-      0,
-      0,
-      1080,
-      1920
-    )
-
-    drawDarkOverlay(ctx)
-
-    drawSubtitle(
-      ctx,
-      scenes[i]
-    )
-
-    const blob =
-      await canvasToBlob(canvas)
-
-    frames.push(blob)
-
-  }
-
-  for (let i = 0; i < frames.length; i++) {
-
-    ffmpeg.FS(
-      'writeFile',
-      `frame${i}.png`,
-      await fetchFile(frames[i])
-    )
-
-  }
-
-  await ffmpeg.run(
-    '-framerate', '1',
-    '-i', 'frame%d.png',
-    '-c:v', 'libx264',
-    '-pix_fmt', 'yuv420p',
-    'output.mp4'
+  ctx.drawImage(
+    img,
+    0,
+    0,
+    1080,
+    1920
   )
-
-  const data =
-    ffmpeg.FS(
-      'readFile',
-      'output.mp4'
-    )
-
-  return new Blob(
-    [data.buffer],
-    {
-      type: 'video/mp4'
-    }
-  )
-
-}
-
-function drawDarkOverlay(ctx) {
 
   ctx.fillStyle =
-    'rgba(0,0,0,0.35)'
+    'rgba(0,0,0,0.4)'
 
   ctx.fillRect(
     0,
@@ -192,83 +113,33 @@ function drawDarkOverlay(ctx) {
     1920
   )
 
-}
-
-function drawSubtitle(
-  ctx,
-  text
-) {
-
-  ctx.font =
-    'bold 90px sans-serif'
-
   ctx.fillStyle =
     'white'
+
+  ctx.font =
+    'bold 80px sans-serif'
 
   ctx.strokeStyle =
     'black'
 
-  ctx.lineWidth = 10
-
-  const maxWidth = 900
-
-  const lineHeight = 110
-
-  const x = 90
-
-  let y = 1450
-
-  const chars =
-    text.split('')
-
-  let line = ''
-
-  for (let i = 0; i < chars.length; i++) {
-
-    const testLine =
-      line + chars[i]
-
-    const width =
-      ctx.measureText(testLine).width
-
-    if (width > maxWidth) {
-
-      ctx.strokeText(
-        line,
-        x,
-        y
-      )
-
-      ctx.fillText(
-        line,
-        x,
-        y
-      )
-
-      line = chars[i]
-
-      y += lineHeight
-
-    }
-    else {
-
-      line = testLine
-
-    }
-
-  }
+  ctx.lineWidth = 8
 
   ctx.strokeText(
-    line,
-    x,
-    y
+    scenes[0],
+    100,
+    1400
   )
 
   ctx.fillText(
-    line,
-    x,
-    y
+    scenes[0],
+    100,
+    1400
   )
+
+  const blob =
+    await canvasToBlob(canvas)
+
+  return blob
 
 }
 
