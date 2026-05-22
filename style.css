@@ -1,0 +1,13 @@
+
+---
+
+### 2. style.css（最低限のスタイル）
+```css
+body{font-family:system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; padding:20px; background:#111; color:#fff}
+main{max-width:900px;margin:0 auto}
+textarea{width:100%;font-size:16px;padding:10px;border-radius:6px;border:1px solid #333;background:#0f0f0f;color:#fff}
+.controls{margin-top:10px;display:flex;gap:8px}
+button{padding:10px 14px;border-radius:6px;border:none;background:#1e90ff;color:#fff;cursor:pointer}
+#preview video{width:360px;height:640px;background:#000;border:1px solid #333}
+.images img{width:120px;height:80px;object-fit:cover;margin-right:8px;border-radius:6px}
+#progress{margin-top:10px;color:#ccc}
