@@ -1,37 +1,18 @@
-# アルペン合宿 2027 サイト
+# アルペン合宿 2027
 
-静岡大学競技スキー部のアルペン合宿案内用、GitHub Pages対応の静的サイトです。
+GitHub Pagesで公開できる、静岡大学競技スキー部のアルペン合宿案内サイトです。
 
-## 写真の入れ方
+## 写真の追加
+`images` フォルダに次のファイル名で写真を保存してください。
 
-`images` フォルダに以下の名前で写真を入れてください（ファイル名は完全一致させます）。
-
-### アルペン合宿（4枚）
-- `camp-1.jpg`
-- `camp-2.jpg`
-- `camp-3.jpg`
-- `camp-4.jpg`
-
-### 岩岳スピード系（4枚）
-- `iwatake-1.jpg`
-- `iwatake-2.jpg`
-- `iwatake-3.jpg`
-- `iwatake-4.jpg`
-
-画像は JPG 形式を推奨します。PNG/WebPを使う場合は、`index.html` 内の該当する画像パスも変更してください。
-写真をまだ入れていない枠は、仮のプレースホルダーとして表示されます。写真をクリックすると拡大表示できます。
+- アルペン合宿：`camp-1.jpg`、`camp-2.jpg`、`camp-3.jpg`、`camp-4.jpg`
+- 岩岳スピード系大会：`iwatake-1.jpg`、`iwatake-2.jpg`、`iwatake-3.jpg`、`iwatake-4.jpg`
 
 ## GitHub Pagesで公開
+1. GitHubにリポジトリを作成
+2. `index.html`、`style.css`、`script.js`、`images` をアップロード
+3. Settings → Pages を開く
+4. Deploy from a branchを選択し、`main` ブランチの `/ (root)` を指定
+5. 表示されたURLで確認
 
-1. GitHubに新しいリポジトリを作成します。
-2. `index.html`、`style.css`、`script.js`、`images` フォルダ、`README.md` をアップロードします。
-3. リポジトリの **Settings → Pages** を開きます。
-4. **Deploy from a branch** を選び、`main` ブランチの `/ (root)` を指定して保存します。
-5. 数分後に表示される公開URLを開きます。
-
-## 公開前に確認すること
-
-- 日程・宿泊費・登録料などが最終決定した内容と一致しているか
-- 写真の掲載許可が取れているか
-- 画像がスマートフォンでも正しく表示されるか
-- Google Fontsとトップの背景画像は外部配信を利用しているため、オフラインでは表示されない場合があります
+公開前に日程・費用を確認し、写真の掲載許可を取ってください。
